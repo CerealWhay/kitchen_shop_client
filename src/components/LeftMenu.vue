@@ -1,0 +1,65 @@
+<template>
+  <v-layout column>
+    <v-list dense>
+
+      <v-list-item-group
+        v-model="selectedItem"
+        color="primary"
+      >
+        <v-list-item
+          v-for="(section, i) in sections"
+          :key="i"
+          :to="section.link"
+          replace
+        >
+          <v-list-item-icon>
+            <v-icon v-text="section.icon"></v-icon>
+          </v-list-item-icon>
+          <v-list-item-content>
+            <v-list-item-title v-text="section.text"></v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
+      </v-list-item-group>
+
+      <v-divider class="mb-5"></v-divider>
+    </v-list>
+  </v-layout>
+</template>
+
+<script>
+/* eslint-disable camelcase */
+
+export default {
+  name: 'leftMenu',
+  computed: {
+  },
+  data: () => ({
+    selectedItem: 1,
+    sections: [
+      { text: 'Главная', icon: 'mdi-home', link: '/' },
+      { text: 'Профиль', icon: 'mdi-account', link: '/profile' },
+      { text: 'Все курсы', icon: 'mdi-format-list-bulleted-square', link: '/all-courses' },
+    ],
+  }),
+  methods: {
+
+  },
+};
+</script>
+
+<style scoped>
+  #fullname-text{
+    font-size: .96em;
+    font-weight: 500;
+    width: inherit;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+  }
+  #roles-wrap {
+    font-size: 0.79em;
+  }
+  #exit {
+    margin-top: auto;
+  }
+</style>

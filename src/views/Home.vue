@@ -1,15 +1,19 @@
 <template>
-  <hello-world />
+  <div>{{account}}</div>
 </template>
 
 <script>
-import HelloWorld from '../components/HelloWorld';
+import { mapState } from 'vuex';
 
 export default {
   name: 'Home',
+  computed: {
+    ...mapState({
+      account: (state) => state.auth.account,
+    }),
+  },
 
   components: {
-    HelloWorld,
   },
 };
 </script>
