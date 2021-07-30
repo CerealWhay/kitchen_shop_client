@@ -6,31 +6,54 @@
       elevate-on-scroll
     >
       <v-app-bar-nav-icon
-        color="white"
+        color="black"
         class="mr-5"
         @click.stop="leftMenu = !leftMenu"
       ></v-app-bar-nav-icon>
+
+        <v-text-field
+          hide-details
+          dense
+          class="text-field"
+          color="button"
+          type="text"
+          v-model="search"
+          placeholder="Enter product name"
+          label="Search by name"
+        ></v-text-field>
+
       <div id="header-text-wrap">
         <v-icon
           id="header-icon"
           class="mr-3"
-          color="white"
-        >mdi-shape-plus</v-icon>
+          color="black"
+        >
+          mdi-shape-plus
+        </v-icon>
         <span id="header-text">Kitchen Shop</span>
       </div>
       <span class="username-header" v-if="account">
-        You enter as  {{account.user.username}}
+        You enter as  {{account.username}}
       </span>
       <div id="logout-btn-wrap" v-if="isAuthenticated">
         <v-btn
           text
-          color="white"
+          color="black"
           @click.prevent="logout"
         >
           <v-icon class="mr-1">mdi-exit-to-app</v-icon>
           <span>Sign out</span>
         </v-btn>
       </div>
+
+      <v-progress-linear
+        :active="loadingActive"
+        color="button"
+        indeterminate
+        absolute
+        bottom
+      ></v-progress-linear>
+
     </v-app-bar>
     <v-navigation-drawer
       v-model="leftMenu"
@@ -39,10 +62,6 @@
       <left-menu/>
     </v-navigation-drawer>
     <v-main>
-      <loading
-        :loading="loadingActive"
-        color="primary"
-      />
       <transition name="fade" mode="out-in">
         <router-view/>
       </transition>
@@ -53,18 +72,17 @@
 <script>
 import { mapState } from 'vuex';
 import { LOGOUT } from '@/store/actions.type';
-import loading from '@/components/Loading.vue';
 import leftMenu from '@/components/LeftMenu.vue';
 
 export default {
   name: 'App',
   components: {
-    loading,
     leftMenu,
   },
 
   data: () => ({
     leftMenu: true,
+    search: '',
   }),
   computed: {
     ...mapState({
@@ -82,3 +100,9 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+.text-field {
+  max-width: 500px;
+}
+</style>

@@ -1,29 +1,35 @@
 import Vue from 'vue';
 
-const SESSION_KEY = 'savedsession';
+const TOKEN_KEY = 'savedtoken';
+const ACCOUNT_KEY = 'savedaccount';
 
 export const saveSession = (data) => {
-  window.localStorage.setItem(SESSION_KEY, JSON.stringify(data));
+  window.localStorage.setItem(ACCOUNT_KEY, JSON.stringify(data));
 };
 
 export const getSession = () => {
-  const session = window.localStorage.getItem(SESSION_KEY);
+  const session = window.localStorage.getItem(ACCOUNT_KEY);
   if (session) {
     return JSON.parse(session);
   }
   return null;
 };
 
+export const saveToken = (data) => {
+  window.localStorage.setItem(TOKEN_KEY, JSON.stringify(data));
+};
+
 export const getToken = () => {
-  const session = JSON.parse(window.localStorage.getItem(SESSION_KEY));
+  const session = JSON.parse(window.localStorage.getItem(TOKEN_KEY));
   if (session) {
-    return session.token;
+    return session;
   }
   return null;
 };
 
 export const destroySession = () => {
-  window.localStorage.removeItem(SESSION_KEY);
+  window.localStorage.removeItem(TOKEN_KEY);
+  window.localStorage.removeItem(ACCOUNT_KEY);
   Vue.axios.defaults.headers.common.Authorization = '';
 };
 
@@ -32,5 +38,10 @@ export const setHeader = () => {
 };
 
 export default {
-  saveToken: saveSession, getToken, getSession, destroyToken: destroySession, setHeader,
+  saveSession,
+  saveToken,
+  getToken,
+  getSession,
+  destroySession,
+  setHeader,
 };

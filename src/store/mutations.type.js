@@ -1,5 +1,10 @@
 export const PURGE_AUTH = 'logOut';
-export const SET_AUTH = 'setUser';
+export const SET_ACCOUNT = 'setAccount';
+export const SET_TOKEN = 'setToken';
 export const SET_ERROR = 'setError';
 export const START_LOADING = 'startLoading';
 export const STOP_LOADING = 'stopLoading';
+export const SET_CATEGORIES = 'setCategories';
+export const SET_PRODUCTS = 'setProducts';
+export const SET_ADDRESS = 'setAddress';
+export const SET_SELECTED_PRODUCT = 'setSelectedProduct';
