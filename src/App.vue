@@ -11,6 +11,7 @@
         @click.stop="leftMenu = !leftMenu"
       ></v-app-bar-nav-icon>
 
+      <v-form>
         <v-text-field
           hide-details
           dense
@@ -21,6 +22,14 @@
           placeholder="Enter product name"
           label="Search by name"
         ></v-text-field>
+        <v-btn
+          color="success"
+          class="mr-4"
+          @click="searchProducts"
+        >
+          search
+        </v-btn>
+      </v-form>
 
       <div id="header-text-wrap">
         <v-icon
@@ -31,19 +40,6 @@
           mdi-shape-plus
         </v-icon>
         <span id="header-text">Kitchen Shop</span>
-      </div>
-      <span class="username-header" v-if="account">
-        You enter as  {{account.username}}
-      </span>
-      <div id="logout-btn-wrap" v-if="isAuthenticated">
-        <v-btn
-          text
-          color="black"
-          @click.prevent="logout"
-        >
-          <v-icon class="mr-1">mdi-exit-to-app</v-icon>
-          <span>Sign out</span>
-        </v-btn>
       </div>
 
       <v-progress-linear
@@ -71,8 +67,8 @@
 
 <script>
 import { mapState } from 'vuex';
-import { LOGOUT } from '@/store/actions.type';
 import leftMenu from '@/components/LeftMenu.vue';
+import { SEARCH_PRODUCTS, CREATE_SESSION } from '@/store/actions.type';
 
 export default {
   name: 'App',
@@ -84,18 +80,22 @@ export default {
     leftMenu: true,
     search: '',
   }),
+  mounted() {
+    this.$store.dispatch(CREATE_SESSION);
+  },
   computed: {
     ...mapState({
-      isAuthenticated: (state) => state.auth.isAuthenticated,
-      account: (state) => state.auth.account,
       loadingActive: (state) => state.loading.loadingActive,
     }),
   },
   methods: {
-    logout() {
-      this.$store.dispatch(LOGOUT)
-        .then(() => this.$router.push({ name: 'Auth' }))
-        .catch(() => this.$router.push({ name: 'Auth' }));
+    setText() {
+      const FormDataCat = new FormData();
+      FormDataCat.append('text', this.search);
+      return FormDataCat;
+    },
+    searchProducts() {
+      this.$store.dispatch(SEARCH_PRODUCTS, this.setText());
     },
   },
 };

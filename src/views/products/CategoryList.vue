@@ -32,7 +32,7 @@ import ProductCard from '@/components/ProductCard.vue';
 import { GET_PRODUCTS } from '@/store/actions.type';
 
 export default {
-  name: 'Productlist',
+  name: 'Categorylist',
   components: {
     ProductCard,
   },

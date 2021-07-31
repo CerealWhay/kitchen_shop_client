@@ -1,10 +1,5 @@
-export const LOGIN = 'login';
-export const LOGOUT = 'logout';
-export const REGISTER = 'register';
-export const GET_ACCOUNT = 'getAccountInfo';
+export const CREATE_SESSION = 'createSession';
 export const GET_CATEGORIES = 'getCategories';
 export const GET_PRODUCTS = 'getProducts';
-export const CHANGE_ADDRESS = 'changeAddress';
-export const GET_ADDRESS = 'getAddress';
-export const CHANGE_PERSONAL_DATA = 'changePersonalData';
 export const GET_SELECTED_PRODUCT = 'getSelectedProduct';
+export const SEARCH_PRODUCTS = 'searchProduct';

@@ -1,47 +1,39 @@
-import Vue from 'vue';
-
-const TOKEN_KEY = 'savedtoken';
-const ACCOUNT_KEY = 'savedaccount';
-
-export const saveSession = (data) => {
-  window.localStorage.setItem(ACCOUNT_KEY, JSON.stringify(data));
-};
-
-export const getSession = () => {
-  const session = window.localStorage.getItem(ACCOUNT_KEY);
-  if (session) {
-    return JSON.parse(session);
+/* eslint-disable no-mixed-operators */
+/* eslint-disable no-bitwise */
+function getCookie(name) {
+  let cookieValue = null;
+  if (document.cookie && document.cookie !== '') {
+    const cookies = document.cookie.split(';');
+    for (let i = 0; i < cookies.length; i += 1) {
+      const cookie = cookies[i].trim();
+      // Does this cookie string begin with the name we want?
+      if (cookie.substring(0, name.length + 1) === (`${name}=`)) {
+        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+        break;
+      }
+    }
   }
-  return null;
-};
+  return cookieValue;
+}
 
-export const saveToken = (data) => {
-  window.localStorage.setItem(TOKEN_KEY, JSON.stringify(data));
-};
+function uuidv4() {
+  return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, (c) => {
+    // eslint-disable-next-line no-bitwise
+    const r = Math.random() * 16 | 0; const
+      v = c === 'x' ? r : (r & 0x3 | 0x8);
+    return v.toString(16);
+  });
+}
 
-export const getToken = () => {
-  const session = JSON.parse(window.localStorage.getItem(TOKEN_KEY));
-  if (session) {
-    return session;
+export const setOrCheckCookie = () => {
+  let session = getCookie('session');
+
+  if (session == null || session === undefined) {
+    session = uuidv4();
   }
-  return null;
-};
-
-export const destroySession = () => {
-  window.localStorage.removeItem(TOKEN_KEY);
-  window.localStorage.removeItem(ACCOUNT_KEY);
-  Vue.axios.defaults.headers.common.Authorization = '';
-};
-
-export const setHeader = () => {
-  Vue.axios.defaults.headers.common.Authorization = `Token ${getToken()}`;
+  document.cookie = `session=${session};domain=;path=/;samesite=Lax`;
 };
 
 export default {
-  saveSession,
-  saveToken,
-  getToken,
-  getSession,
-  destroySession,
-  setHeader,
+  setOrCheckCookie,
 };

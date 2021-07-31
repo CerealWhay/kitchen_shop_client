@@ -26,7 +26,6 @@ export default {
   name: 'Home',
   computed: {
     ...mapState({
-      account: (state) => state.auth.account,
       categories: (state) => state.products.categories,
       cat_prods: (state) => state.products.cat_prods,
     }),

@@ -1,18 +1,9 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
-// eslint-disable-next-line import/no-cycle
-import {
-  isAuthenticated,
-  isNotAuthenticated,
-} from '@/router/guards';
 
 import Home from '@/views/Home.vue';
 import About from '@/views/About.vue';
 import NotFound from '@/views/NotFound.vue';
-
-import Auth from '@/views/user/Auth.vue';
-import Register from '@/views/user/Register.vue';
-import Profile from '@/views/user/Profile.vue';
 
 import ProductList from '@/views/products/AllProductsList.vue';
 import ProductPage from '@/views/products/ProductPage.vue';
@@ -29,28 +20,9 @@ const routes = [
     component: Home,
   },
   {
-    path: '/profile',
-    name: 'Profile',
-    component: Profile,
-    beforeEnter: isAuthenticated,
-  },
-  {
     path: '/cart',
     name: 'Cart',
     component: Cart,
-    beforeEnter: isAuthenticated,
-  },
-  {
-    path: '/auth',
-    name: 'Auth',
-    component: Auth,
-    beforeEnter: isNotAuthenticated,
-  },
-  {
-    path: '/register',
-    name: 'Register',
-    component: Register,
-    beforeEnter: isNotAuthenticated,
   },
   {
     path: '/about',

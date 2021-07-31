@@ -4,6 +4,7 @@ import {
   GET_PRODUCTS,
   GET_CATEGORIES,
   GET_SELECTED_PRODUCT,
+  SEARCH_PRODUCTS,
 } from '@/store/actions.type';
 import {
   START_LOADING,
@@ -11,8 +12,8 @@ import {
   SET_PRODUCTS,
   SET_CATEGORIES,
   SET_SELECTED_PRODUCT,
+  SET_SEARCH_RESULTS,
 } from '@/store/mutations.type';
-// eslint-disable-next-line import/no-cycle
 import router from '@/router';
 // import {
 //   saveProducts, getProducts,
@@ -22,6 +23,7 @@ const state = {
   products: [],
   categories: [],
   selected_product: {},
+  search_results: {},
 };
 
 const getters = {
@@ -35,6 +37,22 @@ const actions = {
       Vue.axios.post('api/v1/products/products/get_products/', data)
         .then((response) => {
           context.commit(SET_PRODUCTS, response.data);
+          resolve(response);
+          context.commit(STOP_LOADING);
+        })
+        .catch((error) => {
+          router.push({ name: 'NotFound' });
+          reject(error.response.status);
+          context.commit(STOP_LOADING);
+        });
+    });
+  },
+  [SEARCH_PRODUCTS](context, data) {
+    context.commit(START_LOADING);
+    return new Promise((resolve, reject) => {
+      Vue.axios.post('api/v1/products/products/search_products/', data)
+        .then((response) => {
+          context.commit(SET_SEARCH_RESULTS, response.data);
           resolve(response);
           context.commit(STOP_LOADING);
         })
@@ -81,6 +99,10 @@ const actions = {
 const mutations = {
   [SET_PRODUCTS](state, data) {
     state.products = data;
+    // saveProducts(data);
+  },
+  [SET_SEARCH_RESULTS](state, data) {
+    state.search_results = data;
     // saveProducts(data);
   },
   [SET_SELECTED_PRODUCT](state, data) {

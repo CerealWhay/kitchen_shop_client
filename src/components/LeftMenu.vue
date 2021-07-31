@@ -37,10 +37,7 @@ export default {
     selectedItem: 1,
     sections: [
       { text: 'Home', icon: 'mdi-home', link: '/' },
-      { text: 'Profile', icon: 'mdi-home', link: '/profile' },
       { text: 'About', icon: 'mdi-home', link: '/about' },
-      { text: 'Auth', icon: 'mdi-format-list-bulleted-square', link: '/auth' },
-      { text: 'Register', icon: 'mdi-format-list-bulleted-square', link: '/register' },
       { text: 'All products', icon: 'mdi-format-list-bulleted-square', link: '/all-products' },
       { text: 'Cart', icon: 'mdi-home', link: '/cart' },
     ],
