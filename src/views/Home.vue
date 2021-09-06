@@ -1,19 +1,21 @@
 <template>
-  <div>{{account}}</div>
+  <div>
+    home page
+  </div>
 </template>
 
 <script>
-import { mapState } from 'vuex';
-
 export default {
   name: 'Home',
   computed: {
-    ...mapState({
-      account: (state) => state.auth.account,
-    }),
   },
-
-  components: {
+  methods: {
+  },
+  mounted() {
   },
 };
 </script>
+
+<style lang="scss" scoped>
+
+</style>
