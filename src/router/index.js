@@ -3,6 +3,8 @@ import VueRouter from 'vue-router';
 
 import Home from '@/views/Home.vue';
 import About from '@/views/About.vue';
+import ReturnPolicy from '@/views/ReturnPolicy.vue';
+import ContactUs from '@/views/ContactUs.vue';
 import NotFound from '@/views/NotFound.vue';
 
 import ProductList from '@/views/products/AllProductsList.vue';
@@ -28,6 +30,16 @@ const routes = [
     path: '/about',
     name: 'About',
     component: About,
+  },
+  {
+    path: '/return-policy',
+    name: 'ReturnPolicy',
+    component: ReturnPolicy,
+  },
+  {
+    path: '/contact-us',
+    name: 'ContactUs',
+    component: ContactUs,
   },
   {
     path: '/all-products',

@@ -9,7 +9,6 @@
       >
         <span
           class="err404 d-block text-center"
-          color="primary"
           >404</span>
         <span class="Oops d-block text-center">Oops, looks like you're lost...</span>
         <span class="errMistake d-block text-center">The requested page was not found!
@@ -38,13 +37,11 @@ export default {
   font-weight: 500;
   letter-spacing: -1.5px;
   line-height: 110px;
-  color:  var(--primary-color);
 }
 .Oops {
   font-size: 34px;
   letter-spacing: 0.25px;
   margin-top: 30px;
-  color: var(--accent-color);
 }
 .errMistake {
   font-size: 30px;
@@ -54,6 +51,5 @@ export default {
   font-size: 18px;
   letter-spacing: 0.5px;
   margin-top: 30px;
-  color:  var(--primary-color);
 }
 </style>

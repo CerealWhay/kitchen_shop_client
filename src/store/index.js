@@ -4,6 +4,7 @@ import Vuex from 'vuex';
 import loading from './modules/loading.module';
 import products from './modules/products.module';
 import sessions from './modules/sessions.module';
+import cart from './modules/cart.module';
 
 Vue.use(Vuex);
 
@@ -12,5 +13,6 @@ export default new Vuex.Store({
     loading,
     products,
     sessions,
+    cart,
   },
 });

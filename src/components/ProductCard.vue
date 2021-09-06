@@ -1,36 +1,24 @@
 <template>
-<v-card
-  :disabled=isOutOfStock
-  class="mx-auto mb-5"
-  outlined
-  @click="pushToProductPage"
-  link
+<div
+  class="product-card"
+  @click.prevent="pushToProductPage"
 >
-  <v-row>
-    <v-col cols="9">
-      <v-list-item
-        three-line
-      >
-        <v-list-item-avatar
-          tile
-          size="150"
-        >
-          <img :src=linkToImage alt="">
-        </v-list-item-avatar>
-        <v-list-item-content>
-          <v-list-item-title class="headline">{{ product_data.name }}</v-list-item-title>
-          <v-list-item-subtitle>{{ product_data.description }}</v-list-item-subtitle>
-          <v-list-item-subtitle>{{ product_data.category }}</v-list-item-subtitle>
-        </v-list-item-content>
-      </v-list-item>
-    </v-col>
-  </v-row>
-</v-card>
+  <div class="image-container">
+    <div class="dummy"></div>
+    <div class="image-wrap">
+      <img class="card-image" :src=linkToImage alt="">
+    </div>
+  </div>
+  <div class="product-card__text">
+    {{ product_data.name }}
+  </div>
+  <div class="product-card__text">
+    $ {{ product_data.price }}
+  </div>
+</div>
 </template>
 
 <script>
-import { mapState } from 'vuex';
-
 export default {
   name: 'ProductCard',
   props: {
@@ -39,36 +27,63 @@ export default {
       required: true,
     },
   },
-  data: () => ({
-  }),
   methods: {
     pushToProductPage() {
       this.$router.push({ name: 'ProductPage', params: { slug: this.product_data.slug } });
     },
   },
   computed: {
-    ...mapState({
-    }),
     linkToImage() {
       return `${process.env.VUE_APP_BACKEND_DOMAIN}media/${this.product_data.image}`;
-    },
-    isOutOfStock() {
-      return (this.product_data.stock <= 0);
     },
   },
 };
 </script>
 
-<style scoped>
-#delete-icon {
-  font-size: 30px;
-  float: right;
-  margin-right: 25px;
-  margin-top: 15px;
-}
-.button {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
+<style lang="scss" scoped>
+.product-card {
+  width: 100%;
+  transition: $short-trans;
+  padding-bottom: 10px;
+  &:hover {
+    background-color: rgba(0, 0, 0, 0.025);
+    cursor: pointer;
+    border-radius: 5px;
+    .card-image {
+      border-radius: 5px 5px 0px 0px;
+      filter: grayscale(0%) brightness(80%) !important;
+    }
+  }
+  .image-container {
+    display: inline-block;
+    position: relative;
+    width: 100%;
+    margin-bottom: 10px;
+    .dummy {
+      margin-top: 100%;
+    }
+    .image-wrap {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      .card-image {
+        filter: grayscale(50%);
+        width: 100%;
+        height: 100%;
+        object-fit: cover; /* Do not scale the image */
+        object-position: center; /* Center the image within the element */
+        transition: $short-trans;
+      }
+    }
+  }
+  .product-card__text {
+    line-height: 25px;
+    text-align: center;
+    font-size: 16px;
+    color: $text;
+    height: 25px;
+  }
 }
 </style>

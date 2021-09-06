@@ -34,7 +34,7 @@ const actions = {
   [GET_PRODUCTS](context, data) {
     context.commit(START_LOADING);
     return new Promise((resolve, reject) => {
-      Vue.axios.post('api/v1/products/products/get_products/', data)
+      Vue.axios.post('api/v1/products/get_products/', data)
         .then((response) => {
           context.commit(SET_PRODUCTS, response.data);
           resolve(response);
@@ -50,7 +50,7 @@ const actions = {
   [SEARCH_PRODUCTS](context, data) {
     context.commit(START_LOADING);
     return new Promise((resolve, reject) => {
-      Vue.axios.post('api/v1/products/products/search_products/', data)
+      Vue.axios.post('api/v1/products/search_products/', data)
         .then((response) => {
           context.commit(SET_SEARCH_RESULTS, response.data);
           resolve(response);
@@ -66,7 +66,7 @@ const actions = {
   [GET_SELECTED_PRODUCT](context, data) {
     context.commit(START_LOADING);
     return new Promise((resolve, reject) => {
-      Vue.axios.post('api/v1/products/products/get_selected_product/', data)
+      Vue.axios.post('api/v1/products/get_selected_product/', data)
         .then((response) => {
           context.commit(SET_SELECTED_PRODUCT, response.data);
           resolve(response);
