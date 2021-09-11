@@ -15,9 +15,6 @@ import {
   SET_SEARCH_RESULTS,
 } from '@/store/mutations.type';
 import router from '@/router';
-// import {
-//   saveProducts, getProducts,
-// } from '@/common/products';
 
 const state = {
   products: [],
@@ -33,8 +30,14 @@ const getters = {
 const actions = {
   [GET_PRODUCTS](context, data) {
     context.commit(START_LOADING);
+    let link = '';
+    if (data) {
+      link = `api/v1/products/get_products?category_slug=${data}`;
+    } else {
+      link = 'api/v1/products/get_products/';
+    }
     return new Promise((resolve, reject) => {
-      Vue.axios.post('api/v1/products/get_products/', data)
+      Vue.axios.get(link)
         .then((response) => {
           context.commit(SET_PRODUCTS, response.data);
           resolve(response);
@@ -66,7 +69,7 @@ const actions = {
   [GET_SELECTED_PRODUCT](context, data) {
     context.commit(START_LOADING);
     return new Promise((resolve, reject) => {
-      Vue.axios.post('api/v1/products/get_selected_product/', data)
+      Vue.axios.get(`api/v1/products/get_selected_product?slug=${data}`)
         .then((response) => {
           context.commit(SET_SELECTED_PRODUCT, response.data);
           resolve(response);
@@ -99,19 +102,15 @@ const actions = {
 const mutations = {
   [SET_PRODUCTS](state, data) {
     state.products = data;
-    // saveProducts(data);
   },
   [SET_SEARCH_RESULTS](state, data) {
     state.search_results = data;
-    // saveProducts(data);
   },
   [SET_SELECTED_PRODUCT](state, data) {
     state.selected_product = data;
-    // saveProducts(data);
   },
   [SET_CATEGORIES](state, data) {
     state.categories = data;
-    // saveProducts(data);
   },
 };
 

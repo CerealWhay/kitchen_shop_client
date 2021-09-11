@@ -67,7 +67,7 @@
 <script>
 import {
   REMOVE_PRODUCT_FROM_CART,
-  UPDATE_PRODUCT_IN_CART,
+  UPDATE_PRODUCT_QUANTITY_IN_CART,
 } from '@/store/mutations.type';
 
 export default {
@@ -103,7 +103,7 @@ export default {
           product: this.product_data,
           quantity: newValue,
         };
-        this.$store.commit(UPDATE_PRODUCT_IN_CART, data);
+        this.$store.commit(UPDATE_PRODUCT_QUANTITY_IN_CART, data);
       },
     },
     linkToImage() {

@@ -4,3 +4,6 @@ export const GET_CATEGORIES = 'getCategories';
 export const GET_PRODUCTS = 'getProducts';
 export const GET_SELECTED_PRODUCT = 'getSelectedProduct';
 export const SEARCH_PRODUCTS = 'searchProduct';
+export const CERATE_APPEAL = 'createAppeal';
+export const GET_POSTS = 'getPosts';
+export const GET_SELECTED_POST = 'getSelectedPost';

@@ -1,20 +1,20 @@
 <template>
 <v-container id="all-products-page">
   <div class="category-name">All products</div>
-  <v-row>
+  <v-row
+    v-if="products.length"
+  >
     <v-col
       cols="4"
       v-for="item of items"
       :key="item.id"
     >
-      <div v-if="products.length">
-        <ProductCard
-          :product_data="item"
-        />
-      </div>
-      <p v-else class='no-items'>No products!</p>
+      <ProductCard
+        :product_data="item"
+      />
     </v-col>
   </v-row>
+  <p v-else class='no-items'>No products!</p>
   <div
     v-if="allItems.length > 1"
     class="paginator-wrapper text-center"
@@ -53,6 +53,7 @@ export default {
     }),
   },
   data: () => ({
+    pageSize: 12,
   }),
   methods: {
 
@@ -65,6 +66,13 @@ export default {
   padding: 0px;
   margin-bottom: 30px;
   border-top: 1px solid $line;
+  .no-items {
+    margin-bottom: 30px;
+    text-align: center;
+    color: $text;
+    margin-top: 30px;
+    font-size: 20px;
+  }
   .category-name {
     margin-top: 15px;
     color: $text;

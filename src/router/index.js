@@ -7,6 +7,9 @@ import ReturnPolicy from '@/views/ReturnPolicy.vue';
 import ContactUs from '@/views/ContactUs.vue';
 import NotFound from '@/views/NotFound.vue';
 
+import Journal from '@/views/journal/Journal.vue';
+import PostPage from '@/views/journal/PostPage.vue';
+
 import ProductList from '@/views/products/AllProductsList.vue';
 import ProductPage from '@/views/products/ProductPage.vue';
 import CategoryPage from '@/views/products/CategoryList.vue';
@@ -40,6 +43,16 @@ const routes = [
     path: '/contact-us',
     name: 'ContactUs',
     component: ContactUs,
+  },
+  {
+    path: '/journal',
+    name: 'Journal',
+    component: Journal,
+  },
+  {
+    path: '/journal/:id',
+    name: 'PostPage',
+    component: PostPage,
   },
   {
     path: '/all-products',

@@ -20,7 +20,7 @@
             </a>
             <router-link to="/cart">
               <v-icon v-text="'mdi-cart'"></v-icon>
-              <span v-if="cart" class="cart-text">Cart ({{cart.length}})</span>
+              <span v-if="cart" class="cart-text">Cart ({{cart.cart_items.length}})</span>
             </router-link>
           </div>
         </div>
@@ -117,7 +117,7 @@ export default {
     search: '',
     links: [
       { text: 'Home', link: '/' },
-      { text: 'News', link: '/about' },
+      { text: 'Journal', link: '/journal' },
       { text: 'About Us', link: '/about' },
       { text: 'Contact Us', link: '/contact-us' },
       { text: 'Return policy', link: '/return-policy' },
