@@ -44,7 +44,7 @@ export default {
   name: 'ProductPage',
 
   mounted() {
-    this.$store.dispatch(GET_SELECTED_PRODUCT, this.setForm);
+    this.$store.dispatch(GET_SELECTED_PRODUCT, this.$route.params.slug);
   },
   computed: {
     ...mapState({
@@ -52,11 +52,6 @@ export default {
     }),
     linkToImage() {
       return `${process.env.VUE_APP_BACKEND_DOMAIN}media/${this.product.image}`;
-    },
-    setForm() {
-      const FormDataCat = new FormData();
-      FormDataCat.append('slug', this.$route.params.slug);
-      return FormDataCat;
     },
     cartSerializer() {
       const cart_serializer = {

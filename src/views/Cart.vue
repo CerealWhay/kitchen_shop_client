@@ -26,11 +26,11 @@
   Total
   </v-col>
 </v-row>
-  <div v-if="cart.length > 0">
+  <div v-if="cart.cart_items.length > 0">
     <div
       class="product-wrapper"
       :key="product.id"
-      v-for="product of cart"
+      v-for="product of cart.cart_items"
     >
       <ProductInCart
         :product_data="product"
@@ -38,10 +38,11 @@
     </div>
   </div>
   <p v-else class='no-items'>No items in cart!</p>
-<v-row v-if="cart.length > 0">
+<v-row v-if="cart.cart_items.length > 0">
   <v-col class="instructions-for-seller" cols="6">
     <span>Special instructions for seller</span>
     <v-textarea
+    v-model="instructions"
       class="instructions-textarea"
       label="Input your wishes..."
       background-color="#F4F4F4"
@@ -76,6 +77,9 @@
 <script>
 import { mapState } from 'vuex';
 import ProductInCart from '@/components/ProductInCart.vue';
+import {
+  UPDATE_INSTRUCTIONS_IN_CART,
+} from '@/store/mutations.type';
 
 export default {
   name: 'Cart',
@@ -90,10 +94,19 @@ export default {
     }),
     subtotal() {
       let subtotal = 0;
-      this.cart.forEach((element) => {
+      this.cart.cart_items.forEach((element) => {
         subtotal += Number(element.total);
       });
       return subtotal.toFixed(2);
+    },
+    instructions: {
+      get() {
+        return this.cart.instructions;
+      },
+      set(newValue) {
+        const data = newValue;
+        this.$store.commit(UPDATE_INSTRUCTIONS_IN_CART, data);
+      },
     },
   },
   methods: {
@@ -108,9 +121,6 @@ export default {
 #cart {
   border-top: 1px solid $line;
   margin-bottom: 30px;
-  .no-items {
-    margin-bottom: 30px;
-  }
   #cart-titles {
     margin: 30px 0px 30px 0px;
     height: 25px;
@@ -128,6 +138,7 @@ export default {
     margin-bottom: 30px;
   }
   .no-items {
+    margin-bottom: 30px;
     text-align: center;
     color: $text;
     margin-top: 30px;

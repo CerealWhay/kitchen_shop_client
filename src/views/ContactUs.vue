@@ -35,7 +35,7 @@
 </template>
 
 <script>
-import { CERATE_CUSTOMER } from '@/store/actions.type';
+import { CERATE_APPEAL } from '@/store/actions.type';
 
 export default {
   name: 'ContactUs',
@@ -49,7 +49,7 @@ export default {
   }),
   methods: {
     createAppeal() {
-      this.$store.dispatch(CERATE_CUSTOMER, this.appealForm).then(
+      this.$store.dispatch(CERATE_APPEAL, this.appealForm).then(
         this.appeal_form.name = '',
         this.appeal_form.email = '',
         this.appeal_form.phone = '',

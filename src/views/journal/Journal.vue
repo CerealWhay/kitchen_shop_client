@@ -1,23 +1,22 @@
 <template>
-<v-container id="category-page">
-  <div class="category-name">{{category}}</div>
-  <v-row
-    v-if="products.length"
+<v-container id="journal">
+  <div class="category-name">Journal</div>
+  <div
+    v-if="posts.length"
   >
-    <v-col
-      cols="4"
+    <div
       v-for="item of items"
       :key="item.id"
     >
-      <ProductCard
-        :product_data="item"
+      <PostPreview
+        :post_data="item"
       />
-    </v-col>
-  </v-row>
-  <p v-else class='no-items'>No products!</p>
+    </div>
+  </div>
+  <p v-else class='no-items'>No posts!</p>
   <div
     v-if="allItems.length > 1"
-    class="text-center paginator-wrapper"
+    class="paginator-wrapper text-center"
   >
     <v-pagination
       class="paginator"
@@ -33,52 +32,37 @@
 /* eslint-disable camelcase */
 import pagination from '@/mixins/pagination.mixin';
 import { mapState } from 'vuex';
-import ProductCard from '@/components/ProductCard.vue';
-import { GET_PRODUCTS } from '@/store/actions.type';
+import { GET_POSTS } from '@/store/actions.type';
+import PostPreview from '@/components/PostPreview.vue';
 
 export default {
-  name: 'Categorylist',
+  name: 'Journal',
   mixins: [pagination],
   components: {
-    ProductCard,
+    PostPreview,
   },
   mounted() {
-    this.$store.dispatch(GET_PRODUCTS, this.categorySlug).then(
-      () => this.setupPagination(this.products),
+    this.$store.dispatch(GET_POSTS).then(
+      () => this.setupPagination(this.posts),
     );
-    this.setCategoryName();
-  },
-  methods: {
-    setCategoryName() {
-      this.category = String(this.$route.params.slug).replace(new RegExp('-', 'gi'), ' ');
-    },
   },
   computed: {
     ...mapState({
-      products: (state) => state.products.products,
+      posts: (state) => state.journal.posts,
     }),
-    categorySlug() {
-      return this.$route.params.slug;
-    },
-  },
-  watch: {
-    categorySlug() {
-      this.$store.dispatch(GET_PRODUCTS, this.categorySlug).then(
-        () => this.setupPagination(this.products),
-      );
-      this.setCategoryName();
-    },
   },
   data: () => ({
-    category: '',
-    pageSize: 12,
+    pageSize: 6,
   }),
+  methods: {
+
+  },
 };
 </script>
 
 <style lang="scss">
-#category-page {
-  border-top: 1px solid $line;
+#journal {
+  padding: 0px;
   margin-bottom: 30px;
   .no-items {
     margin-bottom: 30px;
@@ -88,13 +72,10 @@ export default {
     font-size: 20px;
   }
   .category-name {
-    margin-top: 15px;
     color: $text;
     font-size: 24px;
     text-transform:capitalize;
-  }
-  .row {
-    margin-top: 15px;
+    margin-bottom: 30px;
   }
   .paginator-wrapper {
     margin-top: 30px;
